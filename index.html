@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Nook Lab | Creative Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+            flex-grow: 1;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* Grid de Herramientas */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, border 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .tool-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .tool-card h3 {
+            margin: 10px 0;
+        }
+
+        .tool-card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .badge {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>My Nook Lab</h1>
+        <p>Pequeñas herramientas, grandes soluciones.</p>
+    </header>
+
+    <div class="container">
+        <section class="intro">
+            <h2>Bienvenido a mi Laboratorio</h2>
+            <p>Un espacio dedicado a crear micro-utilidades para simplificar tu vida digital.</p>
+        </section>
+
+        <div class="tools-grid">
+            <div class="tool-card" onclick="alert('Funcionalidad QR próximamente...')">
+                <i class="fas fa-qrcode"></i>
+                <span class="badge">Disponible pronto</span>
+                <h3>Texto a QR</h3>
+                <p>Convierte cualquier URL o texto en un código QR descargable al instante.</p>
+            </div>
+
+            <div class="tool-card" onclick="alert('Funcionalidad PDF próximamente...')">
+                <i class="fas fa-file-pdf"></i>
+                <span class="badge">En desarrollo</span>
+                <h3>PDF Unlocker</h3>
+                <p>Elimina las restricciones y contraseñas de tus archivos PDF de forma segura.</p>
+            </div>
+
+            <div class="tool-card" style="border: 2px dashed #475569; background: transparent;">
+                <i class="fas fa-plus-circle" style="color: #475569;"></i>
+                <h3 style="color: #475569;">Próxima Idea</h3>
+                <p>¿Qué más necesitas crear? Este espacio está listo para crecer.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 My Nook Lab - Hecho con ❤️ para creadores.
+    </footer>
+
+</body>
+</html>
