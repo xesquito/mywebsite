@@ -43,7 +43,6 @@
             margin-bottom: 3rem;
         }
 
-        /* Grid de Herramientas */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -71,14 +70,79 @@
             color: var(--primary);
         }
 
-        .tool-card h3 {
-            margin: 10px 0;
+        /* --- ESTILOS DEL MODAL Y FORMULARIO --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
 
-        .tool-card p {
-            color: #94a3b8;
-            font-size: 0.9rem;
+        .modal-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            border: 1px solid var(--primary);
         }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #94a3b8;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .config-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        button.btn-generate {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #qr-result {
+            margin-top: 1.5rem;
+            max-width: 250px;
+            border-radius: 10px;
+            display: none;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* --- FIN ESTILOS MODAL --- */
 
         footer {
             text-align: center;
@@ -108,15 +172,15 @@
     <div class="container">
         <section class="intro">
             <h2>Bienvenido a mi Laboratorio</h2>
-            <p>Este será espacio dedicado a crear pequeñas utilidades, compartir proyectos, curiosidades y mucho más!</p>
+            <p>¡Espacio dedicado a crear pequeñas utilidades y compartir proyectos!</p>
         </section>
 
         <div class="tools-grid">
-            <div class="tool-card" onclick="alert('Funcionalidad QR próximamente...')">
+            <div class="tool-card" onclick="openQRModal()">
                 <i class="fas fa-qrcode"></i>
-                <span class="badge">Disponible pronto</span>
+                <span class="badge" style="background: #22c55e33; color: #22c55e;">Online</span>
                 <h3>Texto a QR</h3>
-                <p>Convierte cualquier URL, tarjeta de contacto o texto en un código QR descargable al instante.</p>
+                <p>Convierte cualquier URL o texto en un código QR usando mi Raspberry Pi.</p>
             </div>
 
             <div class="tool-card" onclick="alert('Funcionalidad PDF próximamente...')">
@@ -134,10 +198,64 @@
         </div>
     </div>
 
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeQRModal()">&times;</span>
+            <h3>Generar Código QR</h3>
+            <p style="font-size: 0.8rem; color: #94a3b8;">El código se genera en tiempo real en mi servidor local.</p>
+            
+            <input type="text" id="qrData" placeholder="https://ejemplo.com">
+            
+            <div class="config-row">
+                <label>Color:</label>
+                <input type="color" id="qrColor" value="#6366f1">
+            </div>
+
+            <button class="btn-generate" onclick="generateQR()">Generar QR</button>
+            
+            <img id="qr-result" src="" alt="Código QR">
+        </div>
+    </div>
+
     <footer>
         &copy; 2026 My Nook Lab - Hecho con pasión para creadores.
     </footer>
 
-</body>
+    <script>
+        function openQRModal() {
+            document.getElementById('qrModal').style.display = 'flex';
+        }
 
+        function closeQRModal() {
+            document.getElementById('qrModal').style.display = 'none';
+            document.getElementById('qr-result').style.display = 'none';
+            document.getElementById('qrData').value = '';
+        }
+
+        function generateQR() {
+            const data = document.getElementById('qrData').value;
+            const color = document.getElementById('qrColor').value;
+            const imgResult = document.getElementById('qr-result');
+
+            if (!data) {
+                alert("Por favor, introduce un texto o URL");
+                return;
+            }
+
+            // Cambia esta URL por tu dominio de Cloudflare Tunnel
+            const apiUrl = `https://qr.mynooklab.com/generate-qr?data=${encodeURIComponent(data)}&color=${encodeURIComponent(color)}`;
+
+            imgResult.src = apiUrl;
+            imgResult.style.display = 'block';
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('qrModal');
+            if (event.target == modal) {
+                closeQRModal();
+            }
+        }
+    </script>
+</body>
 </html>
